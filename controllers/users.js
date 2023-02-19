@@ -23,6 +23,7 @@ const register = (req, res) => {
       res.status(201).json(message);
     })
     .catch((err) => {
+      console.log(err);
       const message = {
         success: false,
         message: "The email already exists",

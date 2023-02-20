@@ -3,7 +3,8 @@ const articleModel = require("../models/articleSchema");
 const mongoose = require("mongoose");
 
 const createNewComment = (req, res) => {
-  const { comment, commenter } = req.body;
+  const commenter = req.token.userId;
+  const comment = req.body.comment;
 
   const articleID = req.params.articleId;
   const newComment = new commentModel({ comment, commenter });

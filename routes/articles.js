@@ -24,6 +24,6 @@ articlesRouter.get("/search_2/:id", getArticleById);
 articlesRouter.put("/:id", updateArticleById);
 articlesRouter.delete("/:id", deleteArticleById);
 articlesRouter.delete("/:id/author", deleteArticlesByAuthor);
-articlesRouter.post("/:articleId/comments", createNewComment);
+articlesRouter.post("/:articleId/comments", authentication, createNewComment);
 
 module.exports = articlesRouter;

@@ -7,7 +7,6 @@ const getAllArticles = (req, res) => {
     .find()
     .populate("comments")
     .then((result) => {
-      console.log(result);
       const message = {
         success: true,
         message: "All the articles",

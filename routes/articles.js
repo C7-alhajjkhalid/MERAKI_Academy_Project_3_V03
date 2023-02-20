@@ -10,14 +10,19 @@ const {
 } = require("../controllers/articles");
 
 const authentication = require("../middlewares/authentication");
-
+const authorization = require("../middlewares/authorization");
 const createNewComment = require("../controllers/comments");
 
 // create articles router
 const articlesRouter = express.Router();
 
 // endpoint for the GET request
-articlesRouter.get("/", authentication, getAllArticles);
+articlesRouter.get(
+  "/",
+  authentication,
+  authorization("CREATE_COMMENTS"),
+  getAllArticles
+);
 articlesRouter.post("/", authentication, createNewArticle);
 articlesRouter.get("/search_1", getArticlesByAuthor);
 articlesRouter.get("/search_2/:id", getArticleById);

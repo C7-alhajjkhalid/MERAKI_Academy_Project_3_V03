@@ -13,6 +13,7 @@ const register = (req, res) => {
     country,
     email,
     password,
+    role,
   });
 
   newUser

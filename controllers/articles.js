@@ -3,10 +3,11 @@ const articleModel = require("../models/articleSchema");
 
 // 1. this function return all articles
 const getAllArticles = (req, res) => {
-  console.log(req.token);
   articleModel
     .find()
+    .populate("comments")
     .then((result) => {
+      console.log(result);
       const message = {
         success: true,
         message: "All the articles",

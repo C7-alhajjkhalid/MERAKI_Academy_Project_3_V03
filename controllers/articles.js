@@ -3,6 +3,7 @@ const articleModel = require("../models/articleSchema");
 
 // 1. this function return all articles
 const getAllArticles = (req, res) => {
+  console.log(req.token);
   articleModel
     .find()
     .then((result) => {

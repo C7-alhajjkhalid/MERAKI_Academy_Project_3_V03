@@ -17,13 +17,13 @@ const createNewComment = require("../controllers/comments");
 const articlesRouter = express.Router();
 
 // endpoint for the GET request
-articlesRouter.get(
+articlesRouter.get("/", authentication, getAllArticles);
+articlesRouter.post(
   "/",
   authentication,
-  authorization("CREATE_COMMENTS"),
-  getAllArticles
+  authorization("CREATE_ARTICLES"),
+  createNewArticle
 );
-articlesRouter.post("/", authentication, createNewArticle);
 articlesRouter.get("/search_1", getArticlesByAuthor);
 articlesRouter.get("/search_2/:id", getArticleById);
 articlesRouter.put("/:id", updateArticleById);

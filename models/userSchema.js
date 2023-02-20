@@ -11,11 +11,9 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function () {
-  this.password = this.password.toLowerCase();
+  this.email = this.email.toLowerCase();
 
-  this.password = await bcrypt.hash(this.password, 3);
-  console.log(process.env.SALT);
-  console.log(this.password);
+  this.password = await bcrypt.hash(this.password, parseInt(process.env.SALT));
 });
 
 module.exports = mongoose.model("User", userSchema);

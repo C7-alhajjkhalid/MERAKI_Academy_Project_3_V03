@@ -1,4 +1,7 @@
 const userModel = require("../models/userSchema");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { options } = require("../routes/users");
 
 const register = (req, res) => {
   const { firstName, lastName, age, country, email, password } = req.body;
@@ -36,21 +39,46 @@ const login = (req, res) => {
   const { email, password } = req.body;
 
   userModel
-    .find({ $and: [{ email: email }, { password: password }] })
-    .then((result) => {
-      if (result.length === 0) {
+    .findOne({ email: email.toLowerCase() })
+    .then(async (result) => {
+      if (!result) {
         const message = {
           success: false,
-          message: "Invalid login credentials",
+          message:
+            "The email doesn’t exist or the password you’ve entered is incorrect",
         };
-        res.status(401).json(message);
+        res.status(403).json(message);
         return;
+      } else {
+        const isCorrect = await bcrypt.compare(password, result.password);
+        if (!isCorrect) {
+          const message = {
+            success: false,
+            message:
+              "The email doesn’t exist or the password you’ve entered is incorrect",
+          };
+          res.status(403).json(message);
+          return;
+        } else {
+          const payload = {
+            userId: result._id,
+            country: result.country,
+          };
+
+          const options = { expiresIn: process.env.TOKEN_EXP_Time };
+
+          const token = jwt.sign(payload, process.env.SECRET, options);
+
+          console.log(token);
+
+          const message = {
+            success: true,
+            message: "Valid login credentials",
+            token,
+          };
+          res.status(200).json(message);
+        }
       }
-      const message = {
-        success: true,
-        message: "Valid login credentials",
-      };
-      res.status(200).json(message);
     })
     .catch((err) => {
       res.json(err);

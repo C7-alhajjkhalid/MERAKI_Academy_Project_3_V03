@@ -25,7 +25,9 @@ const getAllArticles = (req, res) => {
 };
 
 const createNewArticle = (req, res) => {
-  const { title, description, author } = req.body;
+  const author = req.token.userId;
+
+  const { title, description } = req.body;
 
   const newArticle = new articleModel({
     title,

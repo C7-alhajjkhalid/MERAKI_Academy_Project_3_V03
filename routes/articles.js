@@ -17,8 +17,8 @@ const createNewComment = require("../controllers/comments");
 const articlesRouter = express.Router();
 
 // endpoint for the GET request
-articlesRouter.get("/", authentication, getAllArticles);
-articlesRouter.post("/", createNewArticle);
+articlesRouter.get("/", getAllArticles);
+articlesRouter.post("/", authentication, createNewArticle);
 articlesRouter.get("/search_1", getArticlesByAuthor);
 articlesRouter.get("/search_2/:id", getArticleById);
 articlesRouter.put("/:id", updateArticleById);

@@ -26,4 +26,4 @@ const authentication = (req, res, next) => {
 
 module.exports = authentication;
 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2YzMmJiZWIyNTkyODUzZTVkYjE5NjAiLCJjb3VudHJ5IjoiSm9yZGFuIiwiaWF0IjoxNjc2ODgyODIyLCJleHAiOjE2NzY5NjkyMjJ9.9CLBUCJiiMQL-Ndl_xXrX1qIrPc28JUZrh04MUAa3j0
+

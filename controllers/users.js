@@ -41,6 +41,8 @@ const login = (req, res) => {
 
   userModel
     .findOne({ email: email.toLowerCase() })
+    .populate("role")
+    .exec()
     .then(async (result) => {
       if (!result) {
         const message = {
@@ -64,13 +66,14 @@ const login = (req, res) => {
           const payload = {
             userId: result._id,
             country: result.country,
+            role: result.role.role,
+            permissions: result.role.permissions,
           };
+          console.log(payload);
 
           const options = { expiresIn: process.env.TOKEN_EXP_Time };
 
           const token = jwt.sign(payload, process.env.SECRET, options);
-
-          console.log(token);
 
           const message = {
             success: true,
